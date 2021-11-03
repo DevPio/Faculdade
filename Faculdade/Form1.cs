@@ -29,20 +29,22 @@ namespace Faculdade
 
             var comandoAll = this.conection.CreateCommand();
 
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            DataSet ds = new DataSet();
 
 
-           comandoAll.CommandText = "select * from Users";
 
-            this.conection.Open();
+            adapter = new SqlDataAdapter("select * from Users",conection);
+            adapter.Fill(ds, "Users");
 
-            var result = comandoAll.ExecuteReader();
+            TableUsers.DataSource = ds;
 
-            while (result.Read())
-            {
-              var r = result;
-            }
+            TableUsers.DataMember = "Users";
 
-            this.conection.Close();
+
+           
+
+           
         }
 
         private void Adicionar_Click(object sender, EventArgs e)
@@ -58,6 +60,8 @@ namespace Faculdade
 
                 this.conection.Open();
 
+                
+
                 comando.ExecuteNonQuery();
 
                 this.conection.Close();
@@ -68,5 +72,7 @@ namespace Faculdade
                
             }
         }
+
+    
     }
 }
